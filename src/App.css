@@ -4,3 +4,24 @@
   padding: 2rem;
   text-align: center;
 }
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 1s ease;
+}
+
+.time-input-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.countdown-display {
+  margin-top: 2rem;
+  font-size: 2rem;
+  font-weight: bold;
+}
