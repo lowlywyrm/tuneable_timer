@@ -58,7 +58,7 @@ function App() {
     if (isFlashing) {
       flashIntervalId = setInterval(() => {
         setFlashColor((prev) => (prev === "red" ? "white" : "red"));
-      }, 500);
+      }, 100);
     }
 
     return () => {
@@ -72,19 +72,18 @@ function App() {
   }, [timeLeft, isFlashing, isPaused]);
 
   const getBackgroundColor = () => {
-    if (timeLeft === null || initialTime === null) return "white";
+    if (timeLeft === null || initialTime === null) return undefined;
     if (isFlashing) return flashColor;
 
     const progress = timeLeft / initialTime;
     if (progress > 0.5) {
       // From green to white (100% to 50%)
       const greenIntensity = Math.floor(255 * ((progress - 0.5) * 2));
-      return `rgb(${255 - greenIntensity}, 255, ${255 - greenIntensity})`;
+      return `rgb(${255 - greenIntensity}, 255, 0)`;
     } else {
       // From white to red (50% to 0%)
-      const redIntensity = Math.floor(255 * (1 - progress * 2));
       const whiteIntensity = Math.floor(255 * (progress * 2));
-      return `rgb(255, ${whiteIntensity}, ${whiteIntensity})`;
+      return `rgb(255, ${whiteIntensity}, 0)`;
     }
   };
 
@@ -120,6 +119,9 @@ function App() {
       parseInt(minuteInput.value),
       parseInt(secondInput.value)
     );
+    if (time === 0) {
+      return;
+    }
     setTimeLeft(time);
     setInitialTime(time);
     setIsFlashing(false);
@@ -171,6 +173,7 @@ function App() {
               : "Pause"
             : "Stop"}
         </button>
+        {buttonState === "pause" && <button onClick={resetTimer}>Stop</button>}
         {timeLeft !== null && (
           <div className="countdown-display">
             <h2>{formatTime(timeLeft)}</h2>
