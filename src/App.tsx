@@ -153,6 +153,12 @@ function App() {
     secondInput.value = "0";
   };
 
+  const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      submitTime();
+    }
+  };
+
   return (
     <>
       <div
@@ -160,9 +166,24 @@ function App() {
         style={{ backgroundColor: getBackgroundColor() }}
       >
         <div className="time-input-container">
-          <input id="hourInput" defaultValue="0" type="text" />
-          <input id="minuteInput" defaultValue="0" type="text" />
-          <input id="secondInput" defaultValue="0" type="text" />
+          <input
+            id="hourInput"
+            defaultValue="0"
+            type="text"
+            onKeyUp={handleKeyUp}
+          />
+          <input
+            id="minuteInput"
+            defaultValue="0"
+            type="text"
+            onKeyUp={handleKeyUp}
+          />
+          <input
+            id="secondInput"
+            defaultValue="0"
+            type="text"
+            onKeyUp={handleKeyUp}
+          />
         </div>
         <button onClick={handleButtonClick}>
           {buttonState === "submit"
